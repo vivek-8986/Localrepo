@@ -20,7 +20,7 @@ app.use(express.json())
 
 app.get("/url/:shortId",async(req, res) => {
     const allUrls = await URL.find({});
-    return res.render('home')
+    return res.render("Home");
 });
 
 
@@ -28,19 +28,23 @@ app.use("/url",urlRoutes);
 
 app.get('/:shortId', async (req, res) => {
     const shortId = req.params.shortId;
+
     const entry = await URL.findOneAndUpdate(
-        {
-        shortId,
-    },
+    { shortId },
     {
-        $push:{
-            visitHistory:{
+        $push: {
+            visitHistory: {
                 timestamp: Date.now(),
             },
         },
-    }
+    },
+    { returnDocument: 'after' }
 );
-    res.redirect(entry.redirectURL)
-});
+    if (!entry) {
+        return res.status(404).send("Short URL not found");
+    }
 
+    return res.redirect(entry.redirectURL);
+});
+    
 app.listen(PORT,() => console.log(`Server Started at PORT: ${PORT}`))
