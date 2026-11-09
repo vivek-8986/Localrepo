@@ -23,6 +23,12 @@
 // console.log(someValue);
 
 
-const math = require("./math");
+// const math = require("./math");
 
-console.log(math.PI);
+// console.log(math.PI);
+
+
+
+const info = require("./fruits");
+
+console.log(info);
