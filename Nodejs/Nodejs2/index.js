@@ -55,6 +55,12 @@ app.get("/:username/:id", (req, res) => {
     res.send(htmlStr);
 });
 
+app.get("/search",(req,res) => {
+    let { q } = req.query;
+
+    res.send(`search results for query: ${q}`);
+})
+
 
 
 
