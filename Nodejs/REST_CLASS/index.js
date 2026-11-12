@@ -8,10 +8,25 @@ app.set(express.urlencoded({extended: true}));
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 
-app.set(express.static(path.join(__dirname,"public")));
+app.use(express.static(path.join(__dirname,"public")));
 
-app.get("/",(req,res) => {
-    res.send("serving working well!");
+let posts = [
+    {
+        username : "Niamt",
+        content :"I love coading"
+    },
+    {
+        username : "Ayush",
+        content :"feeling proud indian army"
+    },
+    {
+        username : "Nisha",
+        content :"I like my clothes"
+    },
+]
+
+app.get("/posts",(req,res) => {
+    res.render("index.ejs",{ posts});
 })
 
 app.listen(port, () =>{
